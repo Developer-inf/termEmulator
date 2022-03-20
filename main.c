@@ -50,6 +50,13 @@ int main() {
 			break;
 		args = (char**)malloc(sizeof(char*));
 		args = split(command, args);
+		if(strcmp(args[0], "cd") == 0 && args[1] != NULL) {
+			int err = chdir(args[1]);
+			free(args);
+			if(err < 0)
+				fprintf(stderr, "can't change directory\n");
+			continue;
+		}
 
 		int p = fork();
 		if(p == 0) {
